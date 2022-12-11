@@ -26,6 +26,6 @@ public class PlayerStateFactory
     }
     public PlayerBaseState Sprint()
     {
-        return new PlayerGroundedState(_context, this);
+        return new PlayerSprintState(_context, this);
     }
 }

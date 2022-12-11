@@ -67,6 +67,5 @@ public class PlayerController : MonoBehaviour
         cameraEulerAngles.x = Mathf.Clamp(cameraEulerAngles.x, -60, 60);
 
         cam.transform.rotation = Quaternion.Euler(cameraEulerAngles);
-        //change the camera so the camera moves -> cube/player is always in center
     }
 }

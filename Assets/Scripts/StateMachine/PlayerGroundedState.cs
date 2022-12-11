@@ -13,8 +13,7 @@ public class PlayerGroundedState : PlayerBaseState
     }
     public override void EnterState()
     {
-        Debug.Log("Housten we got grounded");
-        //CurrentSubState.EnterState();
+        if (CTX.DebugStateSwitch) Debug.Log("Housten we got grounded");
     }
     public override void UpdateState()
     {
@@ -32,9 +31,8 @@ public class PlayerGroundedState : PlayerBaseState
     }
     public override void InitializeSubstate()
     {
-        Debug.Log("Init Substate");
         if (!CTX.IsMovePressed && !CTX.IsSprintPressed) SetSubState(Factory.Idle());
         else if (CTX.IsMovePressed && !CTX.IsSprintPressed) SetSubState(Factory.Move());
-        //else if (CTX.IsMovePressed && CTX.IsSprintPressed) SetSubState(Factory.Sprint());
+        else if (CTX.IsMovePressed && CTX.IsSprintPressed) SetSubState(Factory.Sprint());
     }
 }

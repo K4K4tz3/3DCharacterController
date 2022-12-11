@@ -8,23 +8,21 @@ public class PlayerMoveState : PlayerBaseState
     : base(currentContext, playerStateFactory) { name = "move"; }
     public override void EnterState()
     {
-        Debug.Log("Entered Substate Move");
+        if (CTX.DebugStateSwitch) Debug.Log("Entered Substate Move");
     }
     public override void UpdateState()
     {
         CheckSwitchState();
+        HandleMove();
     }
     public override void ExitState()
     {
-        Debug.Log("Left Move State");
+        if (CTX.DebugStateSwitch) Debug.Log("Left Move State");
     }
     public override void CheckSwitchState()
     {
-        if (!CTX.IsMovePressed)
-        {
-            SwitchState(Factory.Idle());
-            //Debug.Log("Switch state. From: MOve To: Idle");
-        }
+        if (CTX.IsMovePressed && CTX.IsSprintPressed) SwitchState(Factory.Sprint());
+        else if (!CTX.IsMovePressed) SwitchState(Factory.Idle());
     }
     public override void InitializeSubstate()
     {
@@ -32,6 +30,6 @@ public class PlayerMoveState : PlayerBaseState
     }
     private void HandleMove()
     {
-        CTX.RB.velocity = CTX.transform.forward * CTX.MoveValue.y * CTX.SpeedValue;
+        CTX.RB.velocity = (CTX.transform.forward * CTX.MoveValue.y + CTX.transform.right * CTX.MoveValue.x).normalized * CTX.SpeedValue;
     }
 }

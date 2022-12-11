@@ -8,14 +8,17 @@ public class PlayerSprintState : PlayerBaseState
     : base(currentContext, playerStateFactory) { }
     public override void EnterState()
     {
-        Debug.Log("Entered Substate Sprint");
+        if (CTX.DebugStateSwitch) Debug.Log("Entered Substate Sprint");
     }
     public override void UpdateState()
     {
         CheckSwitchState();
-        //HandleMove();
+        HandleSprint();
     }
-    public override void ExitState() { }
+    public override void ExitState()
+    {
+        if (CTX.DebugStateSwitch) Debug.Log("Left Sprint State");
+    }
     public override void CheckSwitchState()
     {
         if (!CTX.IsMovePressed) SwitchState(Factory.Idle());
@@ -25,7 +28,7 @@ public class PlayerSprintState : PlayerBaseState
     {
         
     }
-    private void HandleMove()
+    private void HandleSprint()
     {
         CTX.RB.velocity = CTX.transform.forward * CTX.MoveValue.y * CTX.SpeedValue * CTX.SprintValue;
     }

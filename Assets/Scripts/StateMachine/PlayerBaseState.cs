@@ -44,8 +44,8 @@ public abstract class PlayerBaseState
 
         // switch current state of context
         if (_isRootState) _ctx.CurrentState = newState;
-        else if (_ctx.CurrentState.CurrentSubState.name != newState.name) _ctx.CurrentState.CurrentSubState = newState;
-        else if (_currentSuperState != null) _currentSuperState.SetSuperState(newState);
+        //else if (_ctx.CurrentState.CurrentSubState.name != newState.name) _ctx.CurrentState.CurrentSubState = newState; // i hate this line, this sole line fixed a problem which took roughly 8h to fix
+        else if (_currentSuperState != null) _currentSuperState.SetSubState(newState); // why is the line above a comment? cuz i read smth wrong and i made my own problem ;-; instead of SetSubState i wrote SetSuperState, that was the issue
     }
     protected void SetSuperState(PlayerBaseState newSuperState)
     {
@@ -53,7 +53,6 @@ public abstract class PlayerBaseState
     }
     protected void SetSubState(PlayerBaseState newSubState)
     {
-        Debug.Log("Set SubState");
         _currentSubState = newSubState;
         _currentSubState.SetSuperState(this);
         _currentSubState.EnterState();

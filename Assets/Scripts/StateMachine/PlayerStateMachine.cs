@@ -6,7 +6,9 @@ using UnityEngine.InputSystem;
 public class PlayerStateMachine : MonoBehaviour
 {
     [Header("Controls:")]
+    [SerializeField] private bool _debugStateSwitch;
     [SerializeField] private bool _look;
+    [SerializeField] private bool _sprintAdvanced; // false -> you can sprint forward, backwards, left and right; true -> you can only sprint forward
 
     [Header("Player Values:")]
     [SerializeField] private float _speedValue = 5f;
@@ -30,6 +32,7 @@ public class PlayerStateMachine : MonoBehaviour
     PlayerStateFactory _states;
 
     #region Getters & Setters
+    public bool DebugStateSwitch { get { return _debugStateSwitch; } }
     // State variables
     public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
 
@@ -61,6 +64,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         _currentState.UpdateStates();
         if (_look) Look();
+        LimitCamRotation();
 
         if (_moveValue != new Vector2(0,0)) _isMovePressed = true;
         else _isMovePressed = false;
@@ -76,15 +80,8 @@ public class PlayerStateMachine : MonoBehaviour
     }
     public void OnSprint(InputAction.CallbackContext context)
     {
-        _isSprintPressed = context.ReadValueAsButton();
-        //if (context.performed)
-        //{
-        //    _sprintValue = _sprintMaxValue;
-        //}
-        //else if (context.canceled)
-        //{
-        //    _sprintValue = 1;
-        //}
+        if (!_sprintAdvanced) _isSprintPressed = context.ReadValueAsButton();
+        else _isSprintPressed = _moveValue == new Vector2(1, 0) ? true : false;
     }
     public void OnJump(InputAction.CallbackContext context)
     {
@@ -100,10 +97,9 @@ public class PlayerStateMachine : MonoBehaviour
         //limit camera rotation
         Vector3 cameraEulerAngles = _cam.transform.rotation.eulerAngles;
 
-        cameraEulerAngles.x = (cameraEulerAngles.y > 180) ? cameraEulerAngles.x - 360 : cameraEulerAngles.x;
+        cameraEulerAngles.x = (cameraEulerAngles.x > 180) ? cameraEulerAngles.x - 360 : cameraEulerAngles.x;
         cameraEulerAngles.x = Mathf.Clamp(cameraEulerAngles.x, -60, 60);
 
-        _cam.transform.rotation = Quaternion.Euler(cameraEulerAngles);
-        //change the camera so the camera moves -> cube/player is always in center
+        _cam.transform.eulerAngles = cameraEulerAngles;
     }
 }

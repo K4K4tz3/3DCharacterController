@@ -8,25 +8,20 @@ public class PlayerIdleState : PlayerBaseState
     : base(currentContext, playerStateFactory) { name = "idle"; }
     public override void EnterState()
     {
-        Debug.Log("Entered Substate Idle");
+        if (CTX.DebugStateSwitch) Debug.Log("Entered Substate Idle");
     }
     public override void UpdateState()
     {
         CheckSwitchState();
-        //Debug.Log("Idle");
-        //Debug.Log($"Idle SuperState: {CurrentSuperState.name}");
     }
     public override void ExitState()
     {
-        Debug.Log("Left Substate Idle");
+        if (CTX.DebugStateSwitch) Debug.Log("Left Substate Idle");
     }
     public override void CheckSwitchState()
     {
-        if (CTX.IsMovePressed)
-        {
-            SwitchState(Factory.Move());
-            //Debug.Log("Switch state. From: Idle To: Move");
-        }
+        if (CTX.IsMovePressed && !CTX.IsSprintPressed) SwitchState(Factory.Move());
+        else if (CTX.IsMovePressed && CTX.IsSprintPressed) SwitchState(Factory.Sprint());
     }
     public override void InitializeSubstate()
     {
