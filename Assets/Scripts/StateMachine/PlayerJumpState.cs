@@ -7,13 +7,13 @@ public class PlayerJumpState : PlayerBaseState
     public PlayerJumpState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
     : base(currentContext, playerStateFactory)
     {
+        InitializeSubstate();
         IsRootState = true;
-        //InitializeSubstate();
-        name = "jump";
     }
     public override void EnterState()
     {
-        Debug.Log("We jumped");
+        if (CTX.DebugStateSwitch) Debug.Log("Entered Jump State");
+        HandleJump();
     }
     public override void UpdateState()
     {
@@ -21,15 +21,16 @@ public class PlayerJumpState : PlayerBaseState
     }
     public override void ExitState()
     {
-        Debug.Log("Left idle State");
+        if (CTX.DebugStateSwitch) Debug.Log("Left Jump State");
     }
     public override void CheckSwitchState()
     {
-        if (!CTX.IsJumpPressed)
-        {
-            SwitchState(Factory.Grounded());
-            Debug.Log("Switch state. From: Jump To: Grounded");
-        }
+        if (CTX.IsOnGround) SwitchState(Factory.Grounded());
     }
     public override void InitializeSubstate(){}
+    private void HandleJump()
+    {
+        CTX.RB.velocity = Vector3.up * 20;
+        CTX.Wait(2);
+    }
 }

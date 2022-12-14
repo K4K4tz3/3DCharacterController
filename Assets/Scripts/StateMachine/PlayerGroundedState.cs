@@ -9,25 +9,23 @@ public class PlayerGroundedState : PlayerBaseState
     {
         IsRootState = true;
         InitializeSubstate();
-        name = "grounded";
     }
     public override void EnterState()
     {
-        if (CTX.DebugStateSwitch) Debug.Log("Housten we got grounded");
+        if (CTX.DebugStateSwitch) Debug.Log("Enterede Grounded State");
     }
     public override void UpdateState()
     {
         CheckSwitchState();
         //Debug.Log($"Grounded SubState: {CurrentSubState.name}");
     }
-    public override void ExitState() { }
+    public override void ExitState()
+    {
+        if (CTX.DebugStateSwitch) Debug.Log("Left Grounded State");
+    }
     public override void CheckSwitchState()
     {
-        if (CTX.IsJumpPressed)
-        {
-            SwitchState(Factory.Jump());
-            //Debug.Log("Switch state. From: Grounded To: JumP");
-        }
+        if (CTX.IsJumpPressed) SwitchState(Factory.Jump());
     }
     public override void InitializeSubstate()
     {

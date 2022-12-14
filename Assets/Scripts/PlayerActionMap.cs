@@ -62,6 +62,24 @@ public partial class @PlayerActionMap : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseLeftMouseButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""12d1a276-0685-4bd6-9a93-b3da86da2a66"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseRightMouseButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""cdb4a5ab-0438-45e8-a325-b215838c147f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +170,28 @@ public partial class @PlayerActionMap : IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b403e825-e9ba-459e-9b9c-4d9fe144bc0d"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseLeftMouseButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fcdcb2cf-74f1-493b-889c-2a778ed6b0ce"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseRightMouseButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +204,8 @@ public partial class @PlayerActionMap : IInputActionCollection2, IDisposable
         m_PlayerMovement_Look = m_PlayerMovement.FindAction("Look", throwIfNotFound: true);
         m_PlayerMovement_Sprint = m_PlayerMovement.FindAction("Sprint", throwIfNotFound: true);
         m_PlayerMovement_Jump = m_PlayerMovement.FindAction("Jump", throwIfNotFound: true);
+        m_PlayerMovement_UseLeftMouseButton = m_PlayerMovement.FindAction("UseLeftMouseButton", throwIfNotFound: true);
+        m_PlayerMovement_UseRightMouseButton = m_PlayerMovement.FindAction("UseRightMouseButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -227,6 +269,8 @@ public partial class @PlayerActionMap : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMovement_Look;
     private readonly InputAction m_PlayerMovement_Sprint;
     private readonly InputAction m_PlayerMovement_Jump;
+    private readonly InputAction m_PlayerMovement_UseLeftMouseButton;
+    private readonly InputAction m_PlayerMovement_UseRightMouseButton;
     public struct PlayerMovementActions
     {
         private @PlayerActionMap m_Wrapper;
@@ -235,6 +279,8 @@ public partial class @PlayerActionMap : IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_PlayerMovement_Look;
         public InputAction @Sprint => m_Wrapper.m_PlayerMovement_Sprint;
         public InputAction @Jump => m_Wrapper.m_PlayerMovement_Jump;
+        public InputAction @UseLeftMouseButton => m_Wrapper.m_PlayerMovement_UseLeftMouseButton;
+        public InputAction @UseRightMouseButton => m_Wrapper.m_PlayerMovement_UseRightMouseButton;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -256,6 +302,12 @@ public partial class @PlayerActionMap : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJump;
+                @UseLeftMouseButton.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseLeftMouseButton;
+                @UseLeftMouseButton.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseLeftMouseButton;
+                @UseLeftMouseButton.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseLeftMouseButton;
+                @UseRightMouseButton.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseRightMouseButton;
+                @UseRightMouseButton.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseRightMouseButton;
+                @UseRightMouseButton.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseRightMouseButton;
             }
             m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -272,6 +324,12 @@ public partial class @PlayerActionMap : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @UseLeftMouseButton.started += instance.OnUseLeftMouseButton;
+                @UseLeftMouseButton.performed += instance.OnUseLeftMouseButton;
+                @UseLeftMouseButton.canceled += instance.OnUseLeftMouseButton;
+                @UseRightMouseButton.started += instance.OnUseRightMouseButton;
+                @UseRightMouseButton.performed += instance.OnUseRightMouseButton;
+                @UseRightMouseButton.canceled += instance.OnUseRightMouseButton;
             }
         }
     }
@@ -282,5 +340,7 @@ public partial class @PlayerActionMap : IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnUseLeftMouseButton(InputAction.CallbackContext context);
+        void OnUseRightMouseButton(InputAction.CallbackContext context);
     }
 }

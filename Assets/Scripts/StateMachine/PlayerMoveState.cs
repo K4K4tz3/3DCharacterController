@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMoveState : PlayerBaseState
 {
     public PlayerMoveState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
-    : base(currentContext, playerStateFactory) { name = "move"; }
+    : base(currentContext, playerStateFactory) {}
     public override void EnterState()
     {
         if (CTX.DebugStateSwitch) Debug.Log("Entered Substate Move");
@@ -30,6 +30,6 @@ public class PlayerMoveState : PlayerBaseState
     }
     private void HandleMove()
     {
-        CTX.RB.velocity = (CTX.transform.forward * CTX.MoveValue.y + CTX.transform.right * CTX.MoveValue.x).normalized * CTX.SpeedValue;
+        CTX.RB.velocity = (CTX.transform.forward * -CTX.MoveValue.y + CTX.transform.right * -CTX.MoveValue.x).normalized * CTX.SpeedValue;
     }
 }

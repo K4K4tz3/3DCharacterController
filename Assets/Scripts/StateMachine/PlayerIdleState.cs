@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerIdleState : PlayerBaseState
 {
     public PlayerIdleState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
-    : base(currentContext, playerStateFactory) { name = "idle"; }
+    : base(currentContext, playerStateFactory) {}
     public override void EnterState()
     {
         if (CTX.DebugStateSwitch) Debug.Log("Entered Substate Idle");

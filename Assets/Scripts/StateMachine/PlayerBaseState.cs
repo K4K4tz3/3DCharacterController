@@ -6,7 +6,6 @@ public abstract class PlayerBaseState
     private PlayerStateFactory _factory;
     private PlayerBaseState _currentSuperState;
     private PlayerBaseState _currentSubState;
-    public string name;
 
     protected bool IsRootState { set { _isRootState = value; } }
     protected PlayerStateMachine CTX { get { return _ctx; } }
@@ -43,7 +42,11 @@ public abstract class PlayerBaseState
         newState.EnterState();
 
         // switch current state of context
-        if (_isRootState) _ctx.CurrentState = newState;
+        if (_isRootState)
+        {
+            _ctx.CurrentState = newState;
+            _currentSubState = null;
+        }
         //else if (_ctx.CurrentState.CurrentSubState.name != newState.name) _ctx.CurrentState.CurrentSubState = newState; // i hate this line, this sole line fixed a problem which took roughly 8h to fix
         else if (_currentSuperState != null) _currentSuperState.SetSubState(newState); // why is the line above a comment? cuz i read smth wrong and i made my own problem ;-; instead of SetSubState i wrote SetSuperState, that was the issue
     }
@@ -55,6 +58,5 @@ public abstract class PlayerBaseState
     {
         _currentSubState = newSubState;
         _currentSubState.SetSuperState(this);
-        _currentSubState.EnterState();
     }
 }

@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &346421265 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4417621105637575088, guid: 3b771f2032f6ddf46bf38ad336dd2aca, type: 3}
+  m_PrefabInstance: {fileID: 4353888163862406982}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,10 +346,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1243750154}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7, z: 0}
+  m_LocalPosition: {x: 0, y: 0.7, z: -0.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 346421265}
   m_Father: {fileID: 1716738070}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -381,7 +387,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -436,8 +442,10 @@ MonoBehaviour:
   _debugStateSwitch: 0
   _look: 1
   _sprintAdvanced: 0
+  _canMoveWhileInAir: 0
   _speedValue: 6
   _sprintValue: 3
+  _jumpForce: 10
 --- !u!114 &1716738065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -527,6 +535,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b2044ff6-ddfd-45bf-b1a3-ccbda92ad8fe
     m_ActionName: PlayerMovement/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1716738064}
+        m_TargetAssemblyTypeName: PlayerStateMachine, Assembly-CSharp
+        m_MethodName: OnUseLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 12d1a276-0685-4bd6-9a93-b3da86da2a66
+    m_ActionName: PlayerMovement/Fire[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1716738064}
+        m_TargetAssemblyTypeName: PlayerStateMachine, Assembly-CSharp
+        m_MethodName: OnUseRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: cdb4a5ab-0438-45e8-a325-b215838c147f
+    m_ActionName: PlayerMovement/UseRightMouseButton[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerMovement
@@ -626,5 +666,105 @@ Transform:
   m_Children:
   - {fileID: 1243750155}
   m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1827958982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1827958983}
+  m_Layer: 0
+  m_Name: 'CurrentProjectiles:'
+  m_TagString: CounterP
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1827958983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827958982}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -38.411, y: 1.3770459, z: -7.847616}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &4353888163862406982
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1243750155}
+    m_Modifications:
+    - target: {fileID: 4417621105637575088, guid: 3b771f2032f6ddf46bf38ad336dd2aca, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417621105637575088, guid: 3b771f2032f6ddf46bf38ad336dd2aca, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417621105637575088, guid: 3b771f2032f6ddf46bf38ad336dd2aca, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.54399997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417621105637575088, guid: 3b771f2032f6ddf46bf38ad336dd2aca, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.84400004
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417621105637575088, guid: 3b771f2032f6ddf46bf38ad336dd2aca, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417621105637575088, guid: 3b771f2032f6ddf46bf38ad336dd2aca, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417621105637575088, guid: 3b771f2032f6ddf46bf38ad336dd2aca, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417621105637575088, guid: 3b771f2032f6ddf46bf38ad336dd2aca, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417621105637575088, guid: 3b771f2032f6ddf46bf38ad336dd2aca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417621105637575088, guid: 3b771f2032f6ddf46bf38ad336dd2aca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417621105637575088, guid: 3b771f2032f6ddf46bf38ad336dd2aca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5753567982188693231, guid: 3b771f2032f6ddf46bf38ad336dd2aca, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319678221030894115, guid: 3b771f2032f6ddf46bf38ad336dd2aca, type: 3}
+      propertyPath: _user
+      value: 
+      objectReference: {fileID: 1716738063}
+    - target: {fileID: 7319678221030894115, guid: 3b771f2032f6ddf46bf38ad336dd2aca, type: 3}
+      propertyPath: _weapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 75425f4920b33724cb4d3895b31f435f, type: 2}
+    - target: {fileID: 7909583889805520088, guid: 3b771f2032f6ddf46bf38ad336dd2aca, type: 3}
+      propertyPath: m_Name
+      value: MP40
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3b771f2032f6ddf46bf38ad336dd2aca, type: 3}

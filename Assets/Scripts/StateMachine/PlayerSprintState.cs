@@ -30,6 +30,6 @@ public class PlayerSprintState : PlayerBaseState
     }
     private void HandleSprint()
     {
-        CTX.RB.velocity = CTX.transform.forward * CTX.MoveValue.y * CTX.SpeedValue * CTX.SprintValue;
+        CTX.RB.velocity = CTX.transform.forward * -CTX.MoveValue.y * CTX.SpeedValue * CTX.SprintValue;
     }
 }
