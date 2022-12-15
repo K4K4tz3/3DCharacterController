@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "90e922a4-4efb-4fec-98c7-e03324064b07",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -153,7 +162,7 @@
                     "name": "",
                     "id": "b403e825-e9ba-459e-9b9c-4d9fe144bc0d",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "Hold",
+                    "interactions": "Hold(duration=3.6)",
                     "processors": "",
                     "groups": "",
                     "action": "UseLeftMouseButton",
@@ -168,6 +177,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "UseRightMouseButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f49a5f88-e88e-4c10-a944-24595ec47e7a",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

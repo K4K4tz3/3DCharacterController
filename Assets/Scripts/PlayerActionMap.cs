@@ -80,6 +80,15 @@ public partial class @PlayerActionMap : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""90e922a4-4efb-4fec-98c7-e03324064b07"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -175,7 +184,7 @@ public partial class @PlayerActionMap : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""b403e825-e9ba-459e-9b9c-4d9fe144bc0d"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": ""Hold(duration=3.6)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""UseLeftMouseButton"",
@@ -192,6 +201,17 @@ public partial class @PlayerActionMap : IInputActionCollection2, IDisposable
                     ""action"": ""UseRightMouseButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f49a5f88-e88e-4c10-a944-24595ec47e7a"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -206,6 +226,7 @@ public partial class @PlayerActionMap : IInputActionCollection2, IDisposable
         m_PlayerMovement_Jump = m_PlayerMovement.FindAction("Jump", throwIfNotFound: true);
         m_PlayerMovement_UseLeftMouseButton = m_PlayerMovement.FindAction("UseLeftMouseButton", throwIfNotFound: true);
         m_PlayerMovement_UseRightMouseButton = m_PlayerMovement.FindAction("UseRightMouseButton", throwIfNotFound: true);
+        m_PlayerMovement_Reload = m_PlayerMovement.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -271,6 +292,7 @@ public partial class @PlayerActionMap : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMovement_Jump;
     private readonly InputAction m_PlayerMovement_UseLeftMouseButton;
     private readonly InputAction m_PlayerMovement_UseRightMouseButton;
+    private readonly InputAction m_PlayerMovement_Reload;
     public struct PlayerMovementActions
     {
         private @PlayerActionMap m_Wrapper;
@@ -281,6 +303,7 @@ public partial class @PlayerActionMap : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_PlayerMovement_Jump;
         public InputAction @UseLeftMouseButton => m_Wrapper.m_PlayerMovement_UseLeftMouseButton;
         public InputAction @UseRightMouseButton => m_Wrapper.m_PlayerMovement_UseRightMouseButton;
+        public InputAction @Reload => m_Wrapper.m_PlayerMovement_Reload;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -308,6 +331,9 @@ public partial class @PlayerActionMap : IInputActionCollection2, IDisposable
                 @UseRightMouseButton.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseRightMouseButton;
                 @UseRightMouseButton.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseRightMouseButton;
                 @UseRightMouseButton.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseRightMouseButton;
+                @Reload.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnReload;
             }
             m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -330,6 +356,9 @@ public partial class @PlayerActionMap : IInputActionCollection2, IDisposable
                 @UseRightMouseButton.started += instance.OnUseRightMouseButton;
                 @UseRightMouseButton.performed += instance.OnUseRightMouseButton;
                 @UseRightMouseButton.canceled += instance.OnUseRightMouseButton;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
             }
         }
     }
@@ -342,5 +371,6 @@ public partial class @PlayerActionMap : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnUseLeftMouseButton(InputAction.CallbackContext context);
         void OnUseRightMouseButton(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }

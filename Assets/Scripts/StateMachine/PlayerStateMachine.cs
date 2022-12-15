@@ -62,7 +62,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _cam = GameObject.Find("Camera");
-        _currentWeapon = GameObject.Find("Gun").GetComponent<Gun>();
+        _currentWeapon = GameObject.Find("MP40").GetComponent<Gun>();
 
         // setup state
         _states = new PlayerStateFactory(this);
@@ -106,12 +106,23 @@ public class PlayerStateMachine : MonoBehaviour
     }
     public void OnUseLeft(InputAction.CallbackContext context)
     {
-        if (context.started) _currentWeapon.CanShoot = true;
-        else if (context.performed || context.canceled) _currentWeapon.CanShoot = false;
+        if (context.started)
+        {
+            _currentWeapon.CanShoot = true;
+            _currentWeapon.StartCoroutine(_currentWeapon.Shoot());
+        }
+        else if (context.performed || context.canceled)
+        {
+            _currentWeapon.CanShoot = false;
+            _currentWeapon.StopCoroutine(_currentWeapon.Shoot());
+        }
     }
     public void OnUseRight(InputAction.CallbackContext context)
     {
-
+    }
+    public void OnReload(InputAction.CallbackContext context)
+    {
+        _currentWeapon.Reload();
     }
     #endregion
     private void LimitCamRotation()
